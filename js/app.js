@@ -110,7 +110,26 @@ function escapeHtml(s) {
     .replace(/"/g, "&quot;");
 }
 
+function initTheme() {
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (!toggleBtn) return;
+
+  toggleBtn.addEventListener("click", () => {
+    let currentTheme = document.documentElement.getAttribute("data-theme");
+    if (!currentTheme) {
+      currentTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("precane-theme", newTheme);
+  });
+}
+
 function main() {
+  initTheme();
+  
   const form = document.getElementById("precane-form");
   if (!(form instanceof HTMLFormElement)) return;
 

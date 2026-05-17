@@ -16,8 +16,22 @@
   --space: 1rem;
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121214;
+  --surface: #1c1c21;
+  --text: #f4f4f5;
+  --text-muted: #c4c4cb;
+  --border: #e8e8ee;
+  --accent: #6db3ff;
+  --accent-contrast: #0a0a0c;
+  --focus: #f9d65c;
+  --danger: #ff8a8a;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #121214;
     --surface: #1c1c21;
     --text: #f4f4f5;
@@ -94,12 +108,40 @@ header {
   margin-bottom: calc(var(--space) * 1.5);
   border-bottom: 2px solid var(--border);
   padding-bottom: var(--space);
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 header h1 {
   margin: 0 0 0.35rem;
   font-size: clamp(1.35rem, 4vw, 1.75rem);
   line-height: 1.2;
+  padding-right: 3rem; /* Space for theme toggle */
+}
+
+#theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#theme-toggle:hover {
+  background: var(--surface);
+}
+
+#theme-toggle:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 
 header p {
@@ -261,8 +303,63 @@ footer {
   border-top: 2px solid var(--border);
   font-size: 0.9rem;
   color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 footer p {
   margin: 0;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+footer a:hover {
+  color: var(--text);
+}
+
+details {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem var(--space);
+  margin-bottom: var(--space);
+}
+
+details[open] {
+  padding-bottom: var(--space);
+}
+
+summary {
+  font-weight: 700;
+  cursor: pointer;
+  margin: -0.5rem calc(var(--space) * -1);
+  padding: 0.5rem var(--space);
+  border-radius: var(--radius);
+}
+
+summary:hover {
+  background: var(--bg);
+}
+
+summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
+
+details > *:not(summary) {
+  margin-top: var(--space);
+}
+
+.build-instructions p, .build-instructions li {
+  margin-bottom: 0.5rem;
+}
+
+.build-instructions ul {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
 }
