@@ -1,230 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Precane — PVC O&amp;M pre-cane calculator</title>
-    <link rel="stylesheet" href="css/styles.css" />
-    <script>
-      const savedTheme = localStorage.getItem('precane-theme');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-      }
-    </script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div class="page">
-      <header>
-        <div class="header-top">
-          <h1>Precane PVC pre-cane calculator</h1>
-          <div class="header-actions">
-            <a href="https://buymeacoffee.com/grahamthetvi" target="_blank" rel="noopener noreferrer" class="action-btn support-btn">☕ Support</a>
-            <a href="mailto:grahamthetvi@icloud.com" class="action-btn contact-btn">✉️ Contact</a>
-            <button id="theme-toggle" class="action-btn theme-btn" aria-label="Toggle theme">
-              <span class="icon">🌓</span> <span class="theme-text">Theme</span>
-            </button>
-          </div>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Precane — PVC O&amp;M pre-cane calculator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    const savedTheme = localStorage.getItem('precane-theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page">
+    <header>
+      <div class="header-top">
+        <h1>PVC Precane Calculator</h1>
+        <div class="header-actions">
+          <a href="https://buymeacoffee.com/grahamthetvi" target="_blank" rel="noopener noreferrer"
+            class="action-btn support-btn">Support</a>
+          <a href="mailto:grahamthetvi@icloud.com" class="action-btn contact-btn">Contact</a>
+          <button id="theme-toggle" class="action-btn theme-btn" aria-label="Toggle theme">Theme</button>
         </div>
-        <p>
-          Enter your measurements to estimate frame dimensions and Schedule
-          40 PVC size. This tool is for DIY planning only and does not replace
-          professional medical or mobility advice.
+      </div>
+      <p>
+        Enter your measurements to estimate frame dimensions and Schedule
+        40 PVC size. This tool is for DIY planning only and does not replace
+        professional medical or mobility advice.
+      </p>
+    </header>
+    <main id="main-content">
+      <section aria-labelledby="form-heading">
+        <h2 id="form-heading">Your measurements</h2>
+        <form id="precane-form" novalidate>
+          <fieldset>
+            <legend>Total height</legend>
+            <label for="height-value">Height value</label>
+            <input id="height-value" name="height_value" type="number" inputmode="decimal" min="1" step="any" required
+              autocomplete="off" aria-describedby="height-hint" />
+            <p id="height-hint" class="hint">
+              Use your standing height in the unit you select below.
+            </p>
+            <div class="radio-group" role="radiogroup" aria-labelledby="height-unit-legend">
+              <span id="height-unit-legend" class="sr-only">Height unit</span>
+              <label for="height-unit-in">
+                <input type="radio" id="height-unit-in" name="height_unit" value="in" checked />
+                Inches
+              </label>
+              <label for="height-unit-cm">
+                <input type="radio" id="height-unit-cm" name="height_unit" value="cm" />
+                Centimeters
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Weight</legend>
+            <label for="weight-value">Weight value</label>
+            <input id="weight-value" name="weight_value" type="number" inputmode="decimal" min="1" step="any" required
+              autocomplete="off" aria-describedby="weight-hint" />
+            <p id="weight-hint" class="hint">
+              Enter your current body weight in the unit you select below.
+            </p>
+            <div class="radio-group" role="radiogroup" aria-labelledby="weight-unit-legend">
+              <span id="weight-unit-legend" class="sr-only">Weight unit</span>
+              <label for="weight-unit-lbs">
+                <input type="radio" id="weight-unit-lbs" name="weight_unit" value="lbs" checked />
+                Pounds
+              </label>
+              <label for="weight-unit-kg">
+                <input type="radio" id="weight-unit-kg" name="weight_unit" value="kg" />
+                Kilograms
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Grip or hand size <span class="hint">(optional)</span></legend>
+            <label for="grip-size">Selection</label>
+            <select id="grip-size" name="grip_size" aria-describedby="grip-hint">
+              <option value="">Not specified</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+            <p id="grip-hint" class="hint">
+              Used for future assembly guidance; does not change pipe size in
+              this version.
+            </p>
+          </fieldset>
+          <button type="submit">Calculate dimensions</button>
+          <div id="form-status" class="form-status form-status--error" role="alert" hidden></div>
+        </form>
+      </section>
+      <section class="results" aria-labelledby="results-heading" aria-live="polite" aria-busy="false"
+        id="results-section">
+        <h2 id="results-heading">Calculated dimensions</h2>
+        <p id="results-instructions" class="hint">
+          Submit the form to see handle height, preview distance, shaft length,
+          and recommended PVC size.
         </p>
-      </header>
-      <main id="main-content">
-        <section aria-labelledby="form-heading">
-          <h2 id="form-heading">Your measurements</h2>
-          <form id="precane-form" novalidate>
-            <fieldset>
-              <legend>Total height</legend>
-              <label for="height-value">Height value</label>
-              <input
-                id="height-value"
-                name="height_value"
-                type="number"
-                inputmode="decimal"
-                min="1"
-                step="any"
-                required
-                autocomplete="off"
-                aria-describedby="height-hint"
-              />
-              <p id="height-hint" class="hint">
-                Use your standing height in the unit you select below.
-              </p>
-              <div
-                class="radio-group"
-                role="radiogroup"
-                aria-labelledby="height-unit-legend"
-              >
-                <span id="height-unit-legend" class="sr-only"
-                  >Height unit</span
-                >
-                <label for="height-unit-in">
-                  <input
-                    type="radio"
-                    id="height-unit-in"
-                    name="height_unit"
-                    value="in"
-                    checked
-                  />
-                  Inches
-                </label>
-                <label for="height-unit-cm">
-                  <input
-                    type="radio"
-                    id="height-unit-cm"
-                    name="height_unit"
-                    value="cm"
-                  />
-                  Centimeters
-                </label>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Weight</legend>
-              <label for="weight-value">Weight value</label>
-              <input
-                id="weight-value"
-                name="weight_value"
-                type="number"
-                inputmode="decimal"
-                min="1"
-                step="any"
-                required
-                autocomplete="off"
-                aria-describedby="weight-hint"
-              />
-              <p id="weight-hint" class="hint">
-                Enter your current body weight in the unit you select below.
-              </p>
-              <div
-                class="radio-group"
-                role="radiogroup"
-                aria-labelledby="weight-unit-legend"
-              >
-                <span id="weight-unit-legend" class="sr-only"
-                  >Weight unit</span
-                >
-                <label for="weight-unit-lbs">
-                  <input
-                    type="radio"
-                    id="weight-unit-lbs"
-                    name="weight_unit"
-                    value="lbs"
-                    checked
-                  />
-                  Pounds
-                </label>
-                <label for="weight-unit-kg">
-                  <input
-                    type="radio"
-                    id="weight-unit-kg"
-                    name="weight_unit"
-                    value="kg"
-                  />
-                  Kilograms
-                </label>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Grip or hand size <span class="hint">(optional)</span></legend>
-              <label for="grip-size">Selection</label>
-              <select id="grip-size" name="grip_size" aria-describedby="grip-hint">
-                <option value="">Not specified</option>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-              </select>
-              <p id="grip-hint" class="hint">
-                Used for future assembly guidance; does not change pipe size in
-                this version.
-              </p>
-            </fieldset>
-            <button type="submit">Calculate dimensions</button>
-            <div
-              id="form-status"
-              class="form-status form-status--error"
-              role="alert"
-              hidden
-            ></div>
-          </form>
-        </section>
-        <section
-          class="results"
-          aria-labelledby="results-heading"
-          aria-live="polite"
-          aria-busy="false"
-          id="results-section"
-        >
-          <h2 id="results-heading">Calculated dimensions</h2>
-          <p id="results-instructions" class="hint">
-            Submit the form to see handle height, preview distance, shaft length,
-            and recommended PVC size.
-          </p>
-          <div id="results-live"></div>
-        </section>
+        <div id="results-live"></div>
+      </section>
 
-        <section class="build-instructions" aria-labelledby="build-heading">
-          <h2 id="build-heading">How to Build Your Precane</h2>
-          <p>
-            Building a PVC precane is a simple DIY project that requires basic tools. Here is a general guide to assembling your precane using the dimensions calculated above.
-          </p>
-          <h3>Materials Needed:</h3>
-          <ul>
-            <li><strong>Schedule 40 PVC Pipe</strong> (Use the diameter recommended in your results, usually 1/2" or 3/4")</li>
-            <li><strong>2 PVC 90-degree elbows</strong> (for the handle turns)</li>
-            <li><strong>PVC Cement</strong> (optional, for permanent assembly)</li>
-            <li><strong>PVC Cutter or Hacksaw</strong></li>
-            <li><strong>Measuring Tape and Marker</strong></li>
-            <li><strong>Sandpaper</strong> (to smooth rough edges)</li>
-          </ul>
-          <h3>Instructions:</h3>
-          <p>
-            <strong>1. Measure and Cut:</strong> Using the calculated dimensions, cut your PVC pipe into three main pieces: the handle (Leg A), the preview extension (Leg B), and the main shaft (Leg C). Take care to account for the depth of the elbow joints (typically about 0.5 to 1 inch of pipe goes inside the fitting) so your final lengths remain accurate.
-          </p>
-          <p>
-            <strong>2. Dry Fit the Joints:</strong> Before gluing anything, assemble the cane to ensure it feels right. Connect the shaft (C) to the preview extension (B) using a 90-degree elbow. Then, connect the preview extension (B) to the handle (A) using the second 90-degree elbow. The result should resemble an open hook or offset cane shape.
-          </p>
-          <p>
-            <strong>3. Test and Adjust:</strong> Have the user try the cane. The handle should rest comfortably near the hip or waist (depending on preference), and the tip of the shaft should rest on the ground ahead of them. If it feels too long or short, adjust the cuts now.
-          </p>
-          <p>
-            <strong>4. Final Assembly:</strong> Once satisfied with the fit, you can use PVC cement to permanently glue the joints. If you prefer to keep the cane adjustable or easy to disassemble for travel, leave it friction-fit (unglued) and ensure the joints are pressed together tightly.
-          </p>
-          <p>
-            <em>Note:</em> For a more durable tip, you can cover the bottom end of the main shaft with a PVC cap, or use a rubber cane tip that fits snugly over the pipe.
-          </p>
-        </section>
-      </main>
-
-      <dialog id="privacy-modal">
-        <h2>Privacy Policy</h2>
-        <p>We believe in your privacy. This application runs entirely in your browser. We do not collect, store, or transmit any of your personal data, measurements, or usage information.</p>
-        <button id="accept-privacy" type="button">I understand</button>
-      </dialog>
-
-      <dialog id="legal-modal">
-        <h2>Legal Disclaimer</h2>
-        <p>This tool is provided "as-is" for educational and DIY planning purposes only. We try to make things work accurately, but we can't guarantee anything. This calculator does not replace professional medical or mobility advice. By using this tool, you agree that you are solely responsible for verifying all cuts, fittings, and the structural integrity of your assembly before use.</p>
-        <button id="accept-legal" type="button">I agree</button>
-      </dialog>
-
-      <footer>
+      <section class="build-instructions" aria-labelledby="build-heading">
+        <h2 id="build-heading">How to Build Your Precane</h2>
         <p>
-          For educational and DIY use only. Verify all cuts and fittings before
-          use.
+          Building a PVC precane is a simple DIY project that requires basic tools. Here is a general guide to
+          assembling your precane using the dimensions calculated above.
+        </p>
+        <h3>Materials Needed:</h3>
+        <ul>
+          <li><strong>Schedule 40 PVC Pipe</strong> (Use the diameter recommended in your results, usually 1/2" or 3/4")
+          </li>
+          <li><strong>2 PVC 90-degree elbows</strong> (for the handle turns)</li>
+          <li><strong>PVC Cement</strong> (optional, for permanent assembly)</li>
+          <li><strong>PVC Cutter or Hacksaw</strong></li>
+          <li><strong>Measuring Tape and Marker</strong></li>
+          <li><strong>Sandpaper</strong> (to smooth rough edges)</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <p>
+          <strong>1. Measure and Cut:</strong> Using the calculated dimensions, cut your PVC pipe into three main
+          pieces: the handle (Leg A), the preview extension (Leg B), and the main shaft (Leg C). Take care to account
+          for the depth of the elbow joints (typically about 0.5 to 1 inch of pipe goes inside the fitting) so your
+          final lengths remain accurate.
         </p>
         <p>
-          <button class="link-btn" id="open-privacy">Privacy Policy</button> | 
-          <button class="link-btn" id="open-legal">Legal Disclaimer</button>
+          <strong>2. Dry Fit the Joints:</strong> Before gluing anything, assemble the cane to ensure it feels right.
+          Connect the shaft (C) to the preview extension (B) using a 90-degree elbow. Then, connect the preview
+          extension (B) to the handle (A) using the second 90-degree elbow. The result should resemble an open hook or
+          offset cane shape.
         </p>
         <p>
-          &copy; 2026 Addison Graham. Released under the MIT License.
+          <strong>3. Test and Adjust:</strong> Have the user try the cane. The handle should rest comfortably near the
+          hip or waist (depending on preference), and the tip of the shaft should rest on the ground ahead of them. If
+          it feels too long or short, adjust the cuts now.
         </p>
-      </footer>
-    </div>
-    <script type="module" src="js/app.js"></script>
-  </body>
+        <p>
+          <strong>4. Final Assembly:</strong> Once satisfied with the fit, you can use PVC cement to permanently glue
+          the joints. If you prefer to keep the cane adjustable or easy to disassemble for travel, leave it friction-fit
+          (unglued) and ensure the joints are pressed together tightly.
+        </p>
+        <p>
+          <em>Note:</em> For a more durable tip, you can cover the bottom end of the main shaft with a PVC cap, or use a
+          rubber cane tip that fits snugly over the pipe.
+        </p>
+      </section>
+    </main>
+
+    <dialog id="privacy-modal">
+      <h2>Privacy Policy</h2>
+      <p>We believe in your privacy. This application runs entirely in your browser. We do not collect, store, or
+        transmit any of your personal data, measurements, or usage information.</p>
+      <button id="accept-privacy" type="button">I understand</button>
+    </dialog>
+
+    <dialog id="legal-modal">
+      <h2>Legal Disclaimer</h2>
+      <p>This tool is provided "as-is" for educational and DIY planning purposes only. We try to make things work
+        accurately, but we can't guarantee anything. This calculator does not replace professional medical or mobility
+        advice. By using this tool, you agree that you are solely responsible for verifying all cuts, fittings, and the
+        structural integrity of your assembly before use.</p>
+      <button id="accept-legal" type="button">I agree</button>
+    </dialog>
+
+    <footer>
+      <p>
+        For educational and DIY use only. Verify all cuts and fittings before
+        use.
+      </p>
+      <p>
+        <button class="link-btn" id="open-privacy">Privacy Policy</button> |
+        <button class="link-btn" id="open-legal">Legal Disclaimer</button>
+      </p>
+      <p>
+        &copy; 2026 Addison Graham. Released under the MIT License.
+      </p>
+    </footer>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+
 </html>
