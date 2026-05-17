@@ -127,8 +127,48 @@ function initTheme() {
   });
 }
 
+function initModals() {
+  const privacyModal = document.getElementById("privacy-modal");
+  const legalModal = document.getElementById("legal-modal");
+  const acceptPrivacy = document.getElementById("accept-privacy");
+  const acceptLegal = document.getElementById("accept-legal");
+  const openPrivacyBtn = document.getElementById("open-privacy");
+  const openLegalBtn = document.getElementById("open-legal");
+
+  if (!(privacyModal instanceof HTMLDialogElement) || !(legalModal instanceof HTMLDialogElement)) return;
+
+  const hasAccepted = localStorage.getItem("precane-policies-accepted");
+
+  if (!hasAccepted) {
+    privacyModal.showModal();
+  }
+
+  acceptPrivacy?.addEventListener("click", () => {
+    privacyModal.close();
+    if (!hasAccepted) {
+      legalModal.showModal();
+    }
+  });
+
+  acceptLegal?.addEventListener("click", () => {
+    legalModal.close();
+    if (!hasAccepted) {
+      localStorage.setItem("precane-policies-accepted", "true");
+    }
+  });
+
+  openPrivacyBtn?.addEventListener("click", () => {
+    privacyModal.showModal();
+  });
+
+  openLegalBtn?.addEventListener("click", () => {
+    legalModal.showModal();
+  });
+}
+
 function main() {
   initTheme();
+  initModals();
   
   const form = document.getElementById("precane-form");
   if (!(form instanceof HTMLFormElement)) return;

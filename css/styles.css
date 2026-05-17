@@ -113,33 +113,51 @@ header {
   position: relative;
 }
 
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
 header h1 {
-  margin: 0 0 0.35rem;
+  margin: 0;
   font-size: clamp(1.35rem, 4vw, 1.75rem);
   line-height: 1.2;
-  padding-right: 3rem; /* Space for theme toggle */
+  flex: 1 1 auto;
 }
 
-#theme-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: var(--radius);
+.header-actions {
   display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
 }
 
-#theme-toggle:hover {
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
   background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
 }
 
-#theme-toggle:focus-visible {
+.action-btn:hover {
+  background: var(--bg);
+  border-color: var(--accent);
+}
+
+.action-btn:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
 }
@@ -322,37 +340,55 @@ footer a:hover {
   color: var(--text);
 }
 
-details {
-  background: var(--surface);
+dialog {
+  padding: calc(var(--space) * 1.5);
   border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 0.5rem var(--space);
-  margin-bottom: var(--space);
+  background: var(--surface);
+  color: var(--text);
+  max-width: 32rem;
+  width: 90vw;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-details[open] {
-  padding-bottom: var(--space);
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
 }
 
-summary {
-  font-weight: 700;
-  cursor: pointer;
-  margin: -0.5rem calc(var(--space) * -1);
-  padding: 0.5rem var(--space);
-  border-radius: var(--radius);
+dialog h2 {
+  margin-top: 0;
 }
 
-summary:hover {
-  background: var(--bg);
-}
-
-summary:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: -3px;
-}
-
-details > *:not(summary) {
+dialog button {
   margin-top: var(--space);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+dialog button:hover {
+  filter: brightness(1.05);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.link-btn:hover {
+  color: var(--text);
 }
 
 .build-instructions p, .build-instructions li {

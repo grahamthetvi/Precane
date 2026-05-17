@@ -16,10 +16,16 @@
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="page">
       <header>
-        <h1>Precane PVC pre-cane calculator</h1>
-        <button id="theme-toggle" aria-label="Toggle theme">
-          <span class="icon">🌓</span>
-        </button>
+        <div class="header-top">
+          <h1>Precane PVC pre-cane calculator</h1>
+          <div class="header-actions">
+            <a href="https://buymeacoffee.com/grahamthetvi" target="_blank" rel="noopener noreferrer" class="action-btn support-btn">☕ Support</a>
+            <a href="mailto:grahamthetvi@icloud.com" class="action-btn contact-btn">✉️ Contact</a>
+            <button id="theme-toggle" class="action-btn theme-btn" aria-label="Toggle theme">
+              <span class="icon">🌓</span> <span class="theme-text">Theme</span>
+            </button>
+          </div>
+        </div>
         <p>
           Enter your measurements to estimate frame dimensions and Schedule
           40 PVC size. This tool is for DIY planning only and does not replace
@@ -191,26 +197,31 @@
             <em>Note:</em> For a more durable tip, you can cover the bottom end of the main shaft with a PVC cap, or use a rubber cane tip that fits snugly over the pipe.
           </p>
         </section>
-
-        <details>
-          <summary>Privacy Policy</summary>
-          <p>We believe in your privacy. This application runs entirely in your browser. We do not collect, store, or transmit any of your personal data, measurements, or usage information.</p>
-        </details>
-
-        <details>
-          <summary>Legal Disclaimer</summary>
-          <p>This tool is provided "as-is" for educational and DIY planning purposes only. We try to make things work accurately, but we can't guarantee anything. This calculator does not replace professional medical or mobility advice. By using this tool, you agree that you are solely responsible for verifying all cuts, fittings, and the structural integrity of your assembly before use.</p>
-        </details>
       </main>
+
+      <dialog id="privacy-modal">
+        <h2>Privacy Policy</h2>
+        <p>We believe in your privacy. This application runs entirely in your browser. We do not collect, store, or transmit any of your personal data, measurements, or usage information.</p>
+        <button id="accept-privacy" type="button">I understand</button>
+      </dialog>
+
+      <dialog id="legal-modal">
+        <h2>Legal Disclaimer</h2>
+        <p>This tool is provided "as-is" for educational and DIY planning purposes only. We try to make things work accurately, but we can't guarantee anything. This calculator does not replace professional medical or mobility advice. By using this tool, you agree that you are solely responsible for verifying all cuts, fittings, and the structural integrity of your assembly before use.</p>
+        <button id="accept-legal" type="button">I agree</button>
+      </dialog>
+
       <footer>
         <p>
           For educational and DIY use only. Verify all cuts and fittings before
           use.
         </p>
         <p>
-          &copy; 2026 Addison Graham. Released under the MIT License.<br />
-          Support the project: <a href="https://buymeacoffee.com/grahamthetvi" target="_blank" rel="noopener noreferrer">Buy me a coffee</a><br />
-          Contact: <a href="mailto:grahamthetvi@icloud.com">grahamthetvi@icloud.com</a>
+          <button class="link-btn" id="open-privacy">Privacy Policy</button> | 
+          <button class="link-btn" id="open-legal">Legal Disclaimer</button>
+        </p>
+        <p>
+          &copy; 2026 Addison Graham. Released under the MIT License.
         </p>
       </footer>
     </div>
