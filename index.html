@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Precane — PVC O&amp;M pre-cane calculator</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="page">
+      <header>
+        <h1>Precane PVC pre-cane calculator</h1>
+        <p>
+          Enter your measurements to estimate frame dimensions and Schedule
+          40 PVC size. This tool is for DIY planning only and does not replace
+          professional medical or mobility advice.
+        </p>
+      </header>
+      <main id="main-content">
+        <section aria-labelledby="form-heading">
+          <h2 id="form-heading">Your measurements</h2>
+          <form id="precane-form" novalidate>
+            <fieldset>
+              <legend>Total height</legend>
+              <label for="height-value">Height value</label>
+              <input
+                id="height-value"
+                name="height_value"
+                type="number"
+                inputmode="decimal"
+                min="1"
+                step="any"
+                required
+                autocomplete="off"
+                aria-describedby="height-hint"
+              />
+              <p id="height-hint" class="hint">
+                Use your standing height in the unit you select below.
+              </p>
+              <div
+                class="radio-group"
+                role="radiogroup"
+                aria-labelledby="height-unit-legend"
+              >
+                <span id="height-unit-legend" class="sr-only"
+                  >Height unit</span
+                >
+                <label for="height-unit-in">
+                  <input
+                    type="radio"
+                    id="height-unit-in"
+                    name="height_unit"
+                    value="in"
+                    checked
+                  />
+                  Inches
+                </label>
+                <label for="height-unit-cm">
+                  <input
+                    type="radio"
+                    id="height-unit-cm"
+                    name="height_unit"
+                    value="cm"
+                  />
+                  Centimeters
+                </label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Weight</legend>
+              <label for="weight-value">Weight value</label>
+              <input
+                id="weight-value"
+                name="weight_value"
+                type="number"
+                inputmode="decimal"
+                min="1"
+                step="any"
+                required
+                autocomplete="off"
+                aria-describedby="weight-hint"
+              />
+              <p id="weight-hint" class="hint">
+                Enter your current body weight in the unit you select below.
+              </p>
+              <div
+                class="radio-group"
+                role="radiogroup"
+                aria-labelledby="weight-unit-legend"
+              >
+                <span id="weight-unit-legend" class="sr-only"
+                  >Weight unit</span
+                >
+                <label for="weight-unit-lbs">
+                  <input
+                    type="radio"
+                    id="weight-unit-lbs"
+                    name="weight_unit"
+                    value="lbs"
+                    checked
+                  />
+                  Pounds
+                </label>
+                <label for="weight-unit-kg">
+                  <input
+                    type="radio"
+                    id="weight-unit-kg"
+                    name="weight_unit"
+                    value="kg"
+                  />
+                  Kilograms
+                </label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Grip or hand size <span class="hint">(optional)</span></legend>
+              <label for="grip-size">Selection</label>
+              <select id="grip-size" name="grip_size" aria-describedby="grip-hint">
+                <option value="">Not specified</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+              <p id="grip-hint" class="hint">
+                Used for future assembly guidance; does not change pipe size in
+                this version.
+              </p>
+            </fieldset>
+            <button type="submit">Calculate dimensions</button>
+            <div
+              id="form-status"
+              class="form-status form-status--error"
+              role="alert"
+              hidden
+            ></div>
+          </form>
+        </section>
+        <section
+          class="results"
+          aria-labelledby="results-heading"
+          aria-live="polite"
+          aria-busy="false"
+          id="results-section"
+        >
+          <h2 id="results-heading">Calculated dimensions</h2>
+          <p id="results-instructions" class="hint">
+            Submit the form to see handle height, preview distance, shaft length,
+            and recommended PVC size.
+          </p>
+          <div id="results-live"></div>
+        </section>
+      </main>
+      <footer>
+        <p>
+          For educational and DIY use only. Verify all cuts and fittings before
+          use.
+        </p>
+      </footer>
+    </div>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
