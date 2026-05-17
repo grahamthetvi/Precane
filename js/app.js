@@ -83,17 +83,31 @@ function renderResults(result, units) {
     <dl>
       <dt>Normalized height</dt><dd>${formatInches(result.heightIn)} (from ${units.heightUnit === "cm" ? "centimeters" : "inches"} input)</dd>
       <dt>Normalized weight</dt><dd>${result.weightLb.toFixed(2)} lb (from ${units.weightUnit === "kg" ? "kilograms" : "pounds"} input)</dd>
-      <dt>Handle height (Leg A)</dt><dd>${formatInches(result.legAIn)}</dd>
-      <dt>Preview distance (Leg B)</dt><dd>${formatInches(result.legBIn)}</dd>
-      <dt>Shaft length (hypotenuse C)</dt><dd>${formatInches(result.shaftCIn)}</dd>
-      <dt>Recommended PVC</dt><dd>Schedule 40, ${escapeHtml(result.pvcNominalInches)} inch nominal</dd>
+      <dt>Effective handle height</dt><dd>${formatInches(result.handleHeightIn)}</dd>
+      <dt>Effective preview distance</dt><dd>${formatInches(result.previewDistIn)}</dd>
+      <dt>Recommended PVC (Main Frame)</dt><dd>Schedule 40, ${escapeHtml(result.pvcNominalInches)} inch nominal</dd>
+      <dt>Recommended PVC (Rollers)</dt><dd>Schedule 40, ${escapeHtml(result.rollerPvcInches)} inch nominal</dd>
       <dt>Grip size</dt><dd>${escapeHtml(gripNote)}</dd>
     </dl>
+    
+    <h3>Cut List (11 Pipes)</h3>
+    <dl>
+      <dt>Part A (Handle)</dt><dd>1 @ ${formatInches(result.partA)}</dd>
+      <dt>Parts B &amp; C (Main Shafts)</dt><dd>2 @ ${formatInches(result.partB)}</dd>
+      <dt>Parts D, E, F, G (Branches)</dt><dd>4 @ ${formatInches(result.partD)}</dd>
+      <dt>Parts H &amp; I (Axles)</dt><dd>2 @ ${formatInches(result.partH)}</dd>
+      <dt>Parts J &amp; K (Rollers)</dt><dd>2 @ ${formatInches(result.partJ)} (${escapeHtml(result.rollerPvcInches)}" PVC)</dd>
+    </dl>
+    
+    <h3>Joints Needed (8 Pieces)</h3>
+    <ul>
+      <li>2x 90-degree elbows (Handle to Shafts)</li>
+      <li>2x Equal tree joints / Tees (Shafts to Branches)</li>
+      <li>4x 90-degree elbows (Branches to Axles)</li>
+    </ul>
+
     <p class="sr-only">
-      Frame legs: handle height ${result.legAIn.toFixed(2)} inches, preview distance
-      ${result.legBIn.toFixed(2)} inches, main pipe hypotenuse
-      ${result.shaftCIn.toFixed(2)} inches. Recommended Schedule 40 PVC nominal diameter
-      ${result.pvcNominalInches} inches. ${result.pvcReasons.join(" ")}
+      Push lawnmower frame calculated. Main shafts ${result.partB.toFixed(2)} inches. Recommended Schedule 40 PVC nominal diameter ${result.pvcNominalInches} inches. ${result.pvcReasons.join(" ")}
     </p>
     <ul class="pvc-reasons" aria-label="PVC selection notes">
       ${reasonsList}

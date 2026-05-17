@@ -60,13 +60,27 @@ export function previewDistanceInches(totalHeightIn) {
 
 /**
  * @param {number} heightIn Total user height in inches (normalized).
- * @returns {{ legAIn: number; legBIn: number; shaftCIn: number }}
+ * @returns {{ handleHeightIn: number; previewDistIn: number; partA: number; partB: number; partC: number; partD: number; partE: number; partF: number; partG: number; partH: number; partI: number; partJ: number; partK: number; }}
  */
 export function computeDimensions(heightIn) {
-  const legAIn = heightIn * 0.6;
-  const legBIn = previewDistanceInches(heightIn);
-  const shaftCIn = Math.hypot(legAIn, legBIn);
-  return { legAIn, legBIn, shaftCIn };
+  const handleHeightIn = heightIn * 0.6;
+  const previewDistIn = previewDistanceInches(heightIn);
+  const shaftLengthIn = Math.hypot(handleHeightIn, previewDistIn);
+  return {
+    handleHeightIn,
+    previewDistIn,
+    partA: 12.0,
+    partB: shaftLengthIn,
+    partC: shaftLengthIn,
+    partD: 6.0,
+    partE: 6.0,
+    partF: 6.0,
+    partG: 6.0,
+    partH: 12.0,
+    partI: 12.0,
+    partJ: 10.0,
+    partK: 10.0,
+  };
 }
 
 /**
@@ -108,6 +122,13 @@ export function selectPvcNominalDiameter(weightLb, shaftCIn) {
   return { nominalInches: "3/4", reasons };
 }
 
+function getRollerSize(mainSize) {
+  if (mainSize === "1/2") return "3/4";
+  if (mainSize === "3/4") return "1";
+  if (mainSize === "1") return "1-1/4";
+  return "1-1/2";
+}
+
 /**
  * @param {{
  *   totalHeight: number;
@@ -120,14 +141,25 @@ export function selectPvcNominalDiameter(weightLb, shaftCIn) {
 export function calculatePreCane(input) {
   const { heightIn, weightLb } = normalizeUnits(input);
   const dimensions = computeDimensions(heightIn);
-  const pvc = selectPvcNominalDiameter(weightLb, dimensions.shaftCIn);
+  const pvc = selectPvcNominalDiameter(weightLb, dimensions.partB);
   return {
     heightIn,
     weightLb,
-    legAIn: dimensions.legAIn,
-    legBIn: dimensions.legBIn,
-    shaftCIn: dimensions.shaftCIn,
+    handleHeightIn: dimensions.handleHeightIn,
+    previewDistIn: dimensions.previewDistIn,
+    partA: dimensions.partA,
+    partB: dimensions.partB,
+    partC: dimensions.partC,
+    partD: dimensions.partD,
+    partE: dimensions.partE,
+    partF: dimensions.partF,
+    partG: dimensions.partG,
+    partH: dimensions.partH,
+    partI: dimensions.partI,
+    partJ: dimensions.partJ,
+    partK: dimensions.partK,
     pvcNominalInches: pvc.nominalInches,
+    rollerPvcInches: getRollerSize(pvc.nominalInches),
     pvcReasons: pvc.reasons,
     gripSize: input.gripSize ?? "",
   };
